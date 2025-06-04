@@ -106,28 +106,35 @@ export async function PUT(req) {
   await dbConnect();
   try {
     const formData = await req.formData();
-    const timeStapm = Date.now();
+    
     const editId = formData.get("editId");
-    const image = formData.get("image");
+    const imageFile = formData.get("image"); // this is a Blob
+    const arrayBuffer = await imageFile.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
 
-    const isImageUploaded =
-      image && typeof image === "object" && image.size > 0;
-    let imageUrl = formData.get("oldImage");
+    // Upload image to ImageKit
+    const response = await imagekit.upload({
+      file: buffer,
+      fileName: imageFile.name,
+      folder: "/blogs",
+    });
 
-    if (isImageUploaded) {
-      const imageBtyeData = await image?.arrayBuffer();
-      const buffer = Buffer?.from(imageBtyeData);
-      const path = `./public/${timeStapm}_${image.name}`;
-      await fs.writeFile(path, buffer);
-      imageUrl = `/${timeStapm}_${image.name}`;
-    }
+    // Optimized url
+    const optimizedImageURL = imagekit.url({
+      path: response.filePath,
+      transformation: [
+        { quality: "auto" },
+        { format: "webp" },
+        { width: "1280" },
+      ],
+    });
 
     const blogData = {
       title: formData.get("title"),
       description: formData.get("description"),
       category: formData.get("category"),
       authorImage: formData.get("authorImage"),
-      image: imageUrl,
+      image: optimizedImageURL,
     };
 
     const blog = await BlogModel.findByIdAndUpdate(editId, blogData);
