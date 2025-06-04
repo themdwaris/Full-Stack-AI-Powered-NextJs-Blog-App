@@ -9,7 +9,7 @@ import React, { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { BsStars } from "react-icons/bs";
 import { FaFileUpload } from "react-icons/fa";
-import Quill from "quill";
+// import Quill from "quill";
 
 const AddBlogForm = () => {
   const {
@@ -24,7 +24,6 @@ const AddBlogForm = () => {
     editId,
     setEditId,
     getAllBlogs,
-    
   } = useBlogContext();
   const [loading, setLoading] = useState(false);
   const [loading2, setLoading2] = useState(false);
@@ -117,38 +116,82 @@ const AddBlogForm = () => {
   };
 
   //Initiate quill only once
-  //   useEffect(() => {
+  // useEffect(() => {
   //   const loadQuill = async () => {
   //     if (!quillRef.current && editorRef.current) {
   //       const Quill = (await import("quill")).default;
   //       quillRef.current = new Quill(editorRef.current, {
-  //         theme: 'snow',
+  //         theme: "snow",
   //       });
   //     }
   //   };
 
   //   loadQuill();
+
+  //   //   // Clean up to prevent duplicate instances
+  //   return () => {
+  //     if (quillRef.current) {
+  //       quillRef.current.off("text-change");
+  //     }
+  //   };
   // }, []);
 
-  useEffect(() => {
-    if (!quillRef.current && editorRef.current) {
-      quillRef.current = new Quill(editorRef.current, { theme: "snow" });
-    }
-    quillRef.current.on("text-change", () => {
-      setDescription(quillRef.current.root.innerHTML);
-    });
-    if (editId && quillRef.current) {
-      quillRef.current.root.innerHTML = description || "";
-      setDescription(description || "");
-    }
+  // useEffect(() => {
+  //   if (!quillRef.current && editorRef.current) {
+  //     quillRef.current = new Quill(editorRef.current, { theme: "snow" });
+  //   }
+  //   quillRef.current.on("text-change", () => {
+  //     setDescription(quillRef.current.root.innerHTML);
+  //   });
+  //   if (editId && quillRef.current) {
+  //     quillRef.current.root.innerHTML = description || "";
+  //     setDescription(description || "");
+  //   }
 
-    // Clean up to prevent duplicate instances
+  //   // Clean up to prevent duplicate instances
+  //   return () => {
+  //     if (quillRef.current) {
+  //       quillRef.current.off("text-change");
+  //     }
+  //   };
+  // }, [editId]);
+
+  useEffect(() => {
+    let quillInstance;
+
+    const loadQuill = async () => {
+      if (!editorRef.current) return;
+
+      const Quill = (await import("quill")).default;
+
+      if (!quillRef.current) {
+        quillInstance = new Quill(editorRef.current, { theme: "snow" });
+        quillRef.current = quillInstance;
+
+        quillInstance.on("text-change", () => {
+          setDescription(quillInstance.root.innerHTML);
+        });
+      }
+
+      if (editId && description && quillRef.current) {
+        quillRef.current.root.innerHTML = description;
+      }
+    };
+
+    loadQuill();
+
     return () => {
       if (quillRef.current) {
         quillRef.current.off("text-change");
+        quillRef.current = null;
+
+        // OPTIONAL: remove Quill DOM (cleanup UI)
+        if (editorRef.current) {
+          editorRef.current.innerHTML = "";
+        }
       }
     };
-  }, [editId]);
+  }, []);
 
   return (
     <div className="w-full p-5">
