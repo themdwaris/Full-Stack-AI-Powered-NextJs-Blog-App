@@ -1,4 +1,4 @@
-# Blogian - Full Stack Blog Application
+# Blogian - Full Stack AI Powered Blog Application
 
 Blogian is a full-stack AI Powered blog application built with **Next.js**, **MongoDB**, **ImageKit**, **Gemini API**, and **Tailwind CSS**. Authenticated users can create, read, update, and delete blogs and comments. The app features a dynamic UI with, responsive design, and a RESTful API.
 
