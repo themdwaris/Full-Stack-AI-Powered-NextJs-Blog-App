@@ -1,0 +1,40 @@
+
+@import "tailwindcss";
+
+
+
+
+
+@theme{
+  --color-primary:'#4d6bfe'
+}
+
+html{
+  @apply scroll-smooth
+}
+/* Add to globals.css or any global style */
+html {
+  transition: background-color 0.3s, color 0.3s;
+}
+
+
+::-webkit-scrollbar{
+  display: none;
+}
+
+.blog-content p{
+  font-size: 15px;
+
+}
+.blog-content h1{
+  font-size: 24px;
+  font-weight: 600;
+  margin-block: 20px;
+}
+.blog-content h2{
+  font-size: 18px;
+  font-weight: 600;
+  margin-block:20px;
+}
+
+
