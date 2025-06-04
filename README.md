@@ -1,6 +1,6 @@
 # Blogian - Full Stack Blog Application
 
-Blogian is a full-stack blog application built with **Next.js**, **MongoDB**, and **Tailwind CSS**. Authenticated users can create, read, update, and delete blogs and comments. The app features a dynamic UI with dark/light mode support, responsive design, and a RESTful API.
+Blogian is a full-stack AI Powered blog application built with **Next.js**, **MongoDB**, **ImageKit**, **Gemini API**, and **Tailwind CSS**. Authenticated users can create, read, update, and delete blogs and comments. The app features a dynamic UI with, responsive design, and a RESTful API.
 
 ---
 
@@ -11,6 +11,7 @@ Blogian is a full-stack blog application built with **Next.js**, **MongoDB**, an
 * 💬 Only **authors** can edit or delete their own comments
 * 👍 Login user can also likes each other comments
 * 🔐 Protected routes and pages for authenticated users
+* 📦 AI Integration generate blogs with AI used Gemini API
 * 🌓 **Dark and Light Theme Toggle** using Context API and Tailwind
 * 🔍 Blog listing with **sorting, pagination**, and **filtering**
 * 🖥️ Fully **Responsive Design** (Mobile & Desktop)
