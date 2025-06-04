@@ -8,10 +8,13 @@ Blogian is a full-stack AI Powered blog application built with **Next.js**, **Mo
 
 * ✅ User Authentication using **JWT**
 * ✍️ Full **CRUD operations** for Blogs and Comments
+* 🖼️ Image Upload with ImageKit – Upload blog thumbnails to ImageKit with optimization and CDN support.
+* 🤖 AI Content Generation – Auto-generate blog descriptions using Google Gemini API based on the title.
+* 📝 Rich Text Editing – Use of Quill.js for advanced formatting and blog writing experience.
 * 💬 Only **authors** can edit or delete their own comments
 * 👍 Login user can also likes each other comments
+* 📄 Paginated Listings – Blog list pages with pagination and sorting by latest.
 * 🔐 Protected routes and pages for authenticated users
-* 📦 AI Integration generate blogs with AI used Gemini API
 * 🌓 **Dark and Light Theme Toggle** using Context API and Tailwind
 * 🔍 Blog listing with **sorting, pagination**, and **filtering**
 * 🖥️ Fully **Responsive Design** (Mobile & Desktop)
